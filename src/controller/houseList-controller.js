@@ -22,7 +22,12 @@ exports.createHouseList = async (req, res, next) => {
 
 exports.getHouseLists = async (req, res, next) => {
   try {
-    const houseLists = await HouseList.findAll();
+    const { skip, take } = req.query;
+
+    const houseLists = await HouseList.findAll({
+      offset: parseInt(skip),
+      limit: parseInt(take),
+    });
 
     res.status(200).json({
       payload: houseLists,
