@@ -20,21 +20,30 @@ exports.createHouseList = async (req, res, next) => {
   }
 };
 
-exports.getHouseLists = async (req, res, next) => {
+exports.getHouseLists = async (req, res) => {
   try {
-    const { skip, take } = req.query;
+    const skip = parseInt(req.query.skip);
+    const take = parseInt(req.query.take);
 
-    const houseLists = await HouseList.findAll({
-      offset: parseInt(skip),
-      limit: parseInt(take),
-    });
+    const houseListsAll = await HouseList.findAll();
+
+    let houseListsSet;
+
+    if (take === 0) {
+      houseListsSet = await HouseList.findAll();
+    } else {
+      houseListsSet = await HouseList.findAll({
+        offset: skip,
+        limit: take,
+      });
+    }
 
     res.status(200).json({
-      payload: houseLists,
-      count: houseLists.length,
+      payload: houseListsSet,
+      count: houseListsAll.length,
     });
-  } catch (err) {
-    next(err);
+  } catch (error) {
+    console.log(error);
   }
 };
 
