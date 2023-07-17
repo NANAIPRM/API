@@ -5,19 +5,19 @@ const { HouseList } = require("../models");
 const generateMockData = async () => {
   try {
     // สร้างรายการ HouseList จำนวนเท่าที่คุณต้องการ
-    const totalItems = 150; // จำนวนรายการที่ต้องการสร้าง
+    const totalItems = 10; // จำนวนรายการที่ต้องการสร้าง
     const houseLists = [];
 
     for (let i = 0; i < totalItems; i++) {
       const house = {
-        name: faker.location.city(),
+        name: faker.address.city(),
         desc: faker.lorem.sentence(),
-        price: faker.number.int({
+        price: faker.random.number({
           min: 100000,
           max: 10000000,
           precision: 2,
         }),
-        post_code: faker.location.zipCode(),
+        postCode: faker.address.zipCode(),
       };
       houseLists.push(house);
     }

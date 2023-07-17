@@ -31,8 +31,8 @@ app.use(express.json());
 app.use("", homeListRoute);
 app.use("", postCodeRoute);
 
-app.use(notFoundMiddleware);
 app.use(errorMiddleware);
+app.use(notFoundMiddleware);
 
 const port = process.env.PORT || 8888;
 
